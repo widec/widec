@@ -39,7 +39,7 @@ namespace Widec.Linq
 		/// <param name="create">The create delegate</param>
 		/// <param name="update">The update delegate</param>
 		/// <param name="delete">The delete delegate</param>
-        public static void Crudonize<TMaster, TSlave>(
+		public static void Crudonize<TMaster, TSlave>(
 			this IEnumerable<TMaster> masterList,
 			IEnumerable<TSlave> slaveList,
 			Func<TMaster, TSlave, bool> compare,
@@ -49,26 +49,26 @@ namespace Widec.Linq
 		{
 			var master = masterList.ToArray();
 			var slave = slaveList.ToList();
-			
+
 			var creates = new List<TMaster>();
-			var updates = new List<Tuple<TMaster,TSlave>>();
-			
-			for (int masterCounter = master.Length - 1; masterCounter > 0; masterCounter--)
+			var updates = new List<Tuple<TMaster, TSlave>>();
+
+			for (int masterCounter = master.Length - 1; masterCounter >= 0; masterCounter--)
 			{
 				var inSlaveList = false;
-				for (int slaveCounter = slave.Count - 1; slaveCounter > 0; slaveCounter--)
+				for (int slaveCounter = slave.Count - 1; slaveCounter >= 0; slaveCounter--)
 				{
 					if (compare(master[masterCounter], slave[slaveCounter]))
 					{
 						// Item is in both lists, add the items to the update list.
-						updates.Add(Tuple.Create(master[masterCounter],slave[slaveCounter]));
-						
+						updates.Add(Tuple.Create(master[masterCounter], slave[slaveCounter]));
+
 						// Remove the slave item because it is already found.
 						slave.RemoveAt(slaveCounter);
-						
+
 						inSlaveList = true;
 						break;
-					}	
+					}
 				}
 				if (!inSlaveList)
 				{
@@ -77,10 +77,29 @@ namespace Widec.Linq
 				}
 			}
 
-            slave.ForEach(s => delete(s));
-            updates.ForEach(ms => update(ms.Item1, ms.Item2));
-            creates.ForEach(m => create(m));
+			slave.ForEach(s => delete(s));
+			updates.ForEach(ms => update(ms.Item1, ms.Item2));
+			creates.ForEach(m => create(m));
 		}
+
+		public static string UnSplit(this IEnumerable<string> items, string seperator)
+		{
+			StringBuilder sb = new StringBuilder();
+
+			foreach(var item in items)
+			{
+				if (sb.Length == 0)
+				{
+					sb.Append(item);
+				}
+				else
+				{ 
+					sb.AppendFormat("{0}{1}", seperator, item);
+				}
+			}
+			return sb.ToString();
+		}
+
 	}
 }
 
