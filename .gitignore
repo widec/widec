@@ -230,3 +230,4 @@ $RECYCLE.BIN/
 *.msp
 Widec_orig.zip
 Widec/Widec.csproj
+Widec/Crudex/ICrudonizer.cs
