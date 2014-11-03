@@ -6,11 +6,11 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("Widec")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Widec Library")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("Widec")]
-[assembly: AssemblyCopyright("Copyright ©  2014")]
+[assembly: AssemblyCopyright("Copyright ©  2014 Wim De Cleen")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
