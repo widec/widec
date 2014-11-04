@@ -65,5 +65,13 @@ namespace Widec.Tests
 			Assert.AreEqual(expected, expected.Split(',').UnSplit(","));
 		}
 
+
+		[TestCase("A,B,C,D", 1, "A1,B2,C3,D4")]
+		[TestCase("A", 1, "A1")]
+		[TestCase("A,B,C,D", 3, "A3,B4,C5,D6")]
+		public void Sequence(string template, int startSequence, string expected)
+		{
+			Assert.AreEqual(expected, template.Split(',').Sequence(startSequence).Select(si => string.Format("{0}{1}", si.Item, si.Sequence)).UnSplit(","));	
+		}
 	}
 }
